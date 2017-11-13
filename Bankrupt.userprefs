@@ -1,0 +1,17 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UpdateUIAposJogada.cs">
+    <Files>
+      <File FileName="Assets\Manager.cs" Line="4" Column="10" />
+      <File FileName="Assets\GameManager.cs" Line="87" Column="39" />
+      <File FileName="Assets\FimJogadaListener.cs" Line="6" Column="87" />
+      <File FileName="Assets\UpdateUIAposJogada.cs" Line="114" Column="1" />
+      <File FileName="Assets\UICasaTabueiro.cs" Line="11" Column="27" />
+      <File FileName="Assets\DadoRoladoListener.cs" Line="13" Column="34" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
