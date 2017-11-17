@@ -1,27 +1,31 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace Bankrupt
+/// <summary>
+/// Player impulsivo que compra sempre que tem o valor disponível.
+/// </summary>
+public class PlayerImpulsivo: Player
 {
-	/// <summary>
-	/// Player impulsivo que compra sempre que tem o valor disponível.
-	/// </summary>
-	public class PlayerImpulsivo: Player
+	public void SetValores (Banco banco, TabuleiroManager tabuleiroManager, Dado dado, int valorRecebidoPorVoltaCompleta)
 	{
-		public PlayerImpulsivo ()
-		{
-		}
+		base.SetValores (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta);
 
-		public bool DecideComprar (int saldoAtual, CasaTabuleiro casa)
-		{
-			return saldoAtual >= casa.valorCompra;
-		}
-
-		public override string ToString ()
-		{
-			return  "Sr. Impulsivo";
-
-		}
-   
+		this.gameObject.name = this.ToString ();
 	}
+
+	public override bool DecideComprar (int saldoAtual, CasaTabuleiro casa)
+	{
+		return saldoAtual >= casa.valorCompra;
+	}
+
+	public override string ToString ()
+	{
+		return  "Sr. Impulsivo";
+
+	}
+			
+   
 }
+
 

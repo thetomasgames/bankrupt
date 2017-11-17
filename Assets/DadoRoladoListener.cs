@@ -11,5 +11,7 @@ public class DadoRoladoListener : MonoBehaviour
 	public void NotificaDadoRolado (int numero)
 	{
 		texto.text = numero.ToString ();
+
+		//System.Threading.Thread.Sleep (1000);
 	}
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bankrupt", "Assembly-CSharp.csproj", "{905CF9E4-C091-DB04-3D36-F1C8E094E8F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bankrupt", "Assembly-CSharp.csproj", "{C6C1823D-3BD6-F4BF-6D02-64CB9A561F1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{905CF9E4-C091-DB04-3D36-F1C8E094E8F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{905CF9E4-C091-DB04-3D36-F1C8E094E8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{905CF9E4-C091-DB04-3D36-F1C8E094E8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{905CF9E4-C091-DB04-3D36-F1C8E094E8F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6C1823D-3BD6-F4BF-6D02-64CB9A561F1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6C1823D-3BD6-F4BF-6D02-64CB9A561F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6C1823D-3BD6-F4BF-6D02-64CB9A561F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6C1823D-3BD6-F4BF-6D02-64CB9A561F1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

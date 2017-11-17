@@ -30,3 +30,35 @@ C:\Users\Acer01\Documents\Tomas\Unity\Bankrupt\Bankrupt\Temp\bin\Debug\UnityEngi
 C:\Users\Acer01\Documents\Tomas\Unity\Bankrupt\Bankrupt\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\Acer01\Documents\Tomas\Unity\Bankrupt\Bankrupt\obj\Debug\Assembly-CSharp.dll
 C:\Users\Acer01\Documents\Tomas\Unity\Bankrupt\Bankrupt\obj\Debug\Assembly-CSharp.pdb
+D:\Tomas\Tomas Games\games\bankrupt\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Tomas\Tomas Games\games\bankrupt\obj\Debug\Assembly-CSharp.dll
+D:\Tomas\Tomas Games\games\bankrupt\obj\Debug\Assembly-CSharp.pdb
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\Assembly-CSharp.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\nunit.framework.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEditor.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.Analytics.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.HoloLens.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.Networking.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.TestRunner.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.Timeline.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.UI.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\Mono.Cecil.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\Unity.SerializationLogic.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\Unity.DataContract.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\ExCSS.Unity.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\Unity.Legacy.NRefactory.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\Unity.UNetWeaver.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\Unity.CecilTools.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.xml
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEditor.xml
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.UI.xml
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.TestRunner.xml
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\nunit.framework.xml
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.Timeline.xml
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.Analytics.xml
+D:\Tomas\Tomas Games\games\bankrupt\Temp\bin\Debug\UnityEngine.HoloLens.xml

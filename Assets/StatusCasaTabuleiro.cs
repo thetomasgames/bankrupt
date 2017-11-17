@@ -1,11 +1,9 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace Bankrupt
+public enum StatusCasaTabuleiro
 {
-	public enum StatusCasaTabuleiro
-	{
-		OCUPADA,
-		DISPONIVEL
-	}
+	OCUPADA,
+	DISPONIVEL
 }
-

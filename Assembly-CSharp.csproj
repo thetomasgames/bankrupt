@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{905CF9E4-C091-DB04-3D36-F1C8E094E8F4}</ProjectGuid>
+    <ProjectGuid>{C6C1823D-3BD6-F4BF-6D02-64CB9A561F1C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -58,11 +58,11 @@
      <Compile Include="Assets\DadoRoladoListener.cs" />
      <Compile Include="Assets\FimJogadaListener.cs" />
      <Compile Include="Assets\GameManager.cs" />
-     <Compile Include="Assets\Manager.cs" />
      <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\PlayerAleatorio.cs" />
      <Compile Include="Assets\PlayerCauteloso.cs" />
      <Compile Include="Assets\PlayerExigente.cs" />
+     <Compile Include="Assets\PlayerFactory.cs" />
      <Compile Include="Assets\PlayerImpulsivo.cs" />
      <Compile Include="Assets\PlayersAtuaisManager.cs" />
      <Compile Include="Assets\Program.cs" />

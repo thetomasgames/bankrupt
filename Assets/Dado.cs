@@ -1,29 +1,31 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using System;
+using UnityEngine.UI;
 
-namespace Bankrupt
+/// <summary>
+/// Classe que representa um dado aleatório com uma lista de possibilidades que pode ser rolado.
+/// </summary>
+public class Dado:MonoBehaviour
 {
-	/// <summary>
-	/// Classe que representa um dado aleatório com uma lista de possibilidades que pode ser rolado.
-	/// </summary>
-	public class Dado
+	private System.Random rand;
+	private List<int> opcoes;
+	public Text texto;
+
+	public void SetValues (List<int> opcoes)
 	{
-		private Random rand;
-		private List<int> opcoes;
+		this.opcoes = opcoes;
+		rand = new System.Random (System.Environment.TickCount);
+	}
 
-		public Dado (List<int> opcoes)
-		{
-			this.opcoes = opcoes;
-			rand = new Random (System.Environment.TickCount);
-		}
-
-		/// <summary>
-		/// Retorna uma das opções possíveis com chances equiprovaveis.
-		/// </summary>
-		public int Rolar ()
-		{
-			return opcoes [rand.Next (opcoes.Count)];
-		}
+	/// <summary>
+	/// Retorna uma das opções possíveis com chances equiprovaveis.
+	/// </summary>
+	public int Rolar ()
+	{
+		int valor = opcoes [rand.Next (opcoes.Count)];
+		texto.text = valor.ToString ();
+		return valor;
 	}
 }
-

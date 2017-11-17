@@ -1,5 +1,4 @@
 ﻿using System;
-using Bankrupt;
 
 public interface FimJogadaListener
 {

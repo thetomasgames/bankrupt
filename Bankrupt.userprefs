@@ -1,17 +1,21 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UpdateUIAposJogada.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameManager.cs">
     <Files>
-      <File FileName="Assets\Manager.cs" Line="4" Column="10" />
-      <File FileName="Assets\GameManager.cs" Line="87" Column="39" />
-      <File FileName="Assets\FimJogadaListener.cs" Line="6" Column="87" />
-      <File FileName="Assets\UpdateUIAposJogada.cs" Line="114" Column="1" />
-      <File FileName="Assets\UICasaTabueiro.cs" Line="11" Column="27" />
-      <File FileName="Assets\DadoRoladoListener.cs" Line="13" Column="34" />
+      <File FileName="Assets\UICasaTabueiro.cs" Line="15" Column="26" />
+      <File FileName="Assets\GameManager.cs" Line="31" Column="46" />
+      <File FileName="Assets\Dado.cs" Line="28" Column="23" />
+      <File FileName="Assets\PlayerAleatorio.cs" Line="18" Column="59" />
+      <File FileName="Assets\PlayerExigente.cs" Line="16" Column="48" />
+      <File FileName="Assets\PlayerCauteloso.cs" Line="19" Column="43" />
+      <File FileName="Assets\PlayerImpulsivo.cs" Line="14" Column="43" />
+      <File FileName="Assets\DadoRoladoListener.cs" Line="12" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="D:\Tomas\Tomas Games\games\bankrupt\Assets\TabuleiroManager.cs" line="23" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

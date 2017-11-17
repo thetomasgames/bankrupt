@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Bankrupt;
+
 
 public class UpdateUIAposJogada : MonoBehaviour,FimJogadaListener
 {
@@ -133,7 +133,6 @@ public class UpdateUIAposJogada : MonoBehaviour,FimJogadaListener
 
 	IEnumerator rotinaAtualizaPosicao (Dictionary<Transform, Vector3> posicoes)
 	{
-		print (posicoes.Count);
 		for (float i = 0; i < 1; i += 0.05f) {
 			yield return new WaitForSeconds (0.005f);
 			foreach (KeyValuePair<Transform,Vector3> kv in posicoes) {
