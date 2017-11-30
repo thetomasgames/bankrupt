@@ -5,21 +5,22 @@ using UnityEngine;
 /// <summary>
 /// Classe que gerencia as casas do tabuleiro, a quem elas pertencem e em qual casa cada player está
 /// </summary>
-public class TabuleiroManager
-{
+public class TabuleiroManager : MonoBehaviour {
 
 	private List<CasaTabuleiro> casas;
-	private Dictionary<Player,int> casaAtualPorPlayer;
-	private Dictionary<CasaTabuleiro,Player> casasCompradasPorPlayer;
+	private Dictionary<Player, int> casaAtualPorPlayer;
+	private Dictionary<CasaTabuleiro, Player> casasCompradasPorPlayer;
 
-	public TabuleiroManager ()
-	{
+	public TabuleiroManager () {
 
 	}
 
-	public void IniciaCasas (List<CasaTabuleiro> casas, List<Player> players)
-	{
+	public void IniciaCasas (List<CasaTabuleiro> casas, List<Player> players) {
 		this.casas = casas;
+		for (var i = 0; i < casas.Count; i++) {
+			casas[i].transform.position = getPosicaoCasaPorIndice (i, casas.Count);
+		}
+		players.ForEach (p => p.transform.position = casas[0].transform.position);
 		casasCompradasPorPlayer = new Dictionary<CasaTabuleiro, Player> ();
 		casas.ForEach (c => casasCompradasPorPlayer.Add (c, null));
 		casaAtualPorPlayer = new Dictionary<Player, int> ();
@@ -28,16 +29,40 @@ public class TabuleiroManager
 		}
 	}
 
+	private Vector3 getPosicaoCasaPorIndice (int indice, int total) {
+		const int width = 23;
+		const int height = 18;
+		const float heightOffset = 3f;
+		float percentual = (float) indice / total;
+		Vector3 posicao;
+		float curWidth;
+		float curHeight;
+		if (percentual < 0.25f) {
+			curWidth = width;
+			curHeight = (0.25f - percentual) / 0.25f * height;
+		} else if (percentual < 0.5f) {
+			curWidth = (0.25f - (percentual - 0.25f)) / 0.25f * width;
+			curHeight = -heightOffset;
+		} else if (percentual < 0.75f) {
+			curWidth = 0;
+			curHeight = (percentual - 0.5f) / 0.25f * height;
+		} else {
+			curWidth = (percentual - 0.75f) / 0.25f * width;
+			curHeight = height + heightOffset;
+		}
+		return new Vector3 (curWidth, curHeight, 0) - new Vector3 (width / 2, height / 2, 0);
+		//return 15 * new Vector3 (Mathf.Sin (percentual * 2 * Mathf.PI), Mathf.Cos (percentual * 2 * Mathf.PI), 0);
+	}
+
 	/// <summary>
 	/// Anda o número de casas informado e retorna se uma volta completa no tabuleiro foi atingida
 	/// </summary>
 	/// <param name="player">Player.</param>
 	/// <param name="numeroCasas">Numero de casas.</param>
-	public bool AndarCasasVerificandoVoltaCompleta (Player player, int numeroCasas)
-	{
-		casaAtualPorPlayer [player] += numeroCasas;
-		if (casaAtualPorPlayer [player] >= casas.Count) {
-			casaAtualPorPlayer [player] = 0;
+	public bool AndarCasasVerificandoVoltaCompleta (Player player, int numeroCasas) {
+		casaAtualPorPlayer[player] += numeroCasas;
+		if (casaAtualPorPlayer[player] >= casas.Count) {
+			casaAtualPorPlayer[player] = 0;
 			return true;
 		} else {
 			return false;
@@ -49,17 +74,15 @@ public class TabuleiroManager
 	/// Retorna a casa do tabuleiro que o player se encontra
 	/// </summary>
 	/// <param name="player">Player.</param>
-	public CasaTabuleiro GetCasaAtual (Player player)
-	{
-		return casas [casaAtualPorPlayer [player]];
+	public CasaTabuleiro GetCasaAtual (Player player) {
+		return casas[casaAtualPorPlayer[player]];
 	}
 
 	/// <summary>
 	/// Retorna o status deu uma casa no tabuleiro (ocupada/disponível)
 	/// </summary>
 	/// <param name="casa">Casa.</param>
-	public StatusCasaTabuleiro GetStatusCasa (CasaTabuleiro casa)
-	{
+	public StatusCasaTabuleiro GetStatusCasa (CasaTabuleiro casa) {
 		return GetDonoDaCasa (casa) == null ? StatusCasaTabuleiro.DISPONIVEL : StatusCasaTabuleiro.OCUPADA;
 	}
 
@@ -68,9 +91,8 @@ public class TabuleiroManager
 	/// </summary>
 	/// <returns>The dono da casa.</returns>
 	/// <param name="casa">Casa.</param>
-	public Player GetDonoDaCasa (CasaTabuleiro casa)
-	{
-		return casasCompradasPorPlayer [casa];
+	public Player GetDonoDaCasa (CasaTabuleiro casa) {
+		return casasCompradasPorPlayer[casa];
 	}
 
 	/// <summary>
@@ -78,25 +100,22 @@ public class TabuleiroManager
 	/// </summary>
 	/// <param name="player">Player.</param>
 	/// <param name="casa">Casa.</param>
-	public void ComprarCasa (Player player, CasaTabuleiro casa)
-	{
-		casasCompradasPorPlayer [casa] = player;
+	public void ComprarCasa (Player player, CasaTabuleiro casa) {
+		casasCompradasPorPlayer[casa] = player;
+		casa.atualizaCor (player.GetCor ());
 	}
 
 	/// <summary>
 	/// Disponibiliza todas as casas de um player (executada no momento que um player sai do jogo)
 	/// </summary>
 	/// <param name="player">Player.</param>
-	public void DisponibilizaCasas (Player player)
-	{
+	public void DisponibilizaCasas (Player player) {
 		List<CasaTabuleiro> casas = new List<CasaTabuleiro> ();
-		foreach (KeyValuePair<CasaTabuleiro,Player> casaPlayer in casasCompradasPorPlayer) {
+		foreach (KeyValuePair<CasaTabuleiro, Player> casaPlayer in casasCompradasPorPlayer) {
 			if (player.Equals (casaPlayer.Value)) {
 				casas.Add (casaPlayer.Key);
 			}
 		}
-		casas.ForEach (c => casasCompradasPorPlayer [c] = null);
+		casas.ForEach (c => casasCompradasPorPlayer[c] = null);
 	}
 }
-
-

@@ -3,10 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class GameManager : MonoBehaviour {
 
-public class GameManager:MonoBehaviour
-{
-	private Banco banco;
+	private static GameManager _instance;
+
+	public static GameManager Instance { get { return _instance; } }
+
+	private void Awake () {
+		if (_instance != null && _instance != this) {
+			Destroy (this.gameObject);
+		} else {
+			_instance = this;
+		}
+	}
+
+	public CompraCasa compraCasa;
+
+	public Banco banco;
 	private TabuleiroManager tabuleiroManager;
 	private Dado dado;
 	private int valorRecebidoPorVoltaCompleta;
@@ -19,35 +32,29 @@ public class GameManager:MonoBehaviour
 	private List<FimJogadaListener> fimJogadaListener = new List<FimJogadaListener> ();
 	private List<DadoRoladoListener> dadoRoladoListener = new List<DadoRoladoListener> ();
 
-	void Start ()
-	{
+	void Start () {
 		ConfiguracoesJogo configuracoes = new ConfiguracoesJogo ();
 		configuracoes.casasTabuleiro = obtemCasasTabuleiroDoArquivo ("gameConfig.txt");
 		rodada = 0;
 		dado = GameObject.Instantiate (Resources.Load ("Dado") as GameObject).GetComponent<Dado> ();
 		dado.SetValues (configuracoes.opcoesDado);
 		valorRecebidoPorVoltaCompleta = configuracoes.valorRecebidoPorVoltaCompleta;
-		banco = new GameObject ("Banco").AddComponent<Banco> ();
-		tabuleiroManager = new	TabuleiroManager ();
+		tabuleiroManager = new TabuleiroManager ();
 		List<Player> listaplayers = new List<Player> {
 			PlayerFactory.criaPlayerImpulsivo (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta),
 			PlayerFactory.criaPlayerExigente (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta, 50),
 			PlayerFactory.criaPlayerCauteloso (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta, 80),
-			PlayerFactory.criaPlayerAleatorio (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta)
+			PlayerFactory.criaPlayerAleatorio (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta),
+			PlayerFactory.criaPlayerReal (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta)
 		};
+		for (var i = 0; i < listaplayers.Count; i++) {
+			listaplayers[i].SetCor (Color.HSVToRGB ((float) i / listaplayers.Count, 1, 1));
+		}
 
-
-		playersAtuaisManager = new	PlayersAtuaisManager (decideOrdemDePlayers (listaplayers));
+		playersAtuaisManager = new PlayersAtuaisManager (decideOrdemDePlayers (listaplayers));
 		tabuleiroManager.IniciaCasas (configuracoes.casasTabuleiro, listaplayers);
 		banco.IniciaContas (listaplayers, configuracoes.dinheiroInicial);
 		numeroMaximoRodadas = configuracoes.numeroMaximoRodadas;
-	}
-
-	private Player criaPlayer (Player p)
-	{
-		GameObject go = new GameObject ();
-		Type tipo = p.GetType ();
-		return go.AddComponent (tipo) as Player; 
 	}
 
 	/// <summary>
@@ -56,27 +63,25 @@ public class GameManager:MonoBehaviour
 	/// 2: Vez mais próxima no término da rodada
 	/// </summary>
 	/// <returns>The vencedor.</returns>
-	public Player GetVencedor ()
-	{
+	public Player GetVencedor () {
 		List<Player> vencedores = playersAtuaisManager.GetVencedores ();
 		if (vencedores.Count > 1) {
 			vencedores.Sort ((v1, v2) => banco.GetSaldo (v2).CompareTo (banco.GetSaldo (v1)));
-			if (banco.GetSaldo (vencedores [0]) == banco.GetSaldo (vencedores [1])) {
+			if (banco.GetSaldo (vencedores[0]) == banco.GetSaldo (vencedores[1])) {
 				Player proximoPlayer;
 				do {
 					proximoPlayer = playersAtuaisManager.GetProximoPlayer ();
-				} while(!(proximoPlayer.Equals (vencedores [0]) || proximoPlayer.Equals (vencedores [1])));
+				} while (!(proximoPlayer.Equals (vencedores[0]) || proximoPlayer.Equals (vencedores[1])));
 				return proximoPlayer;
-			} 
+			}
 		}
-		return vencedores [0];
+		return vencedores[0];
 	}
 
 	/// <summary>
 	/// Executa a próxima jogada, rodada a rodada até que a condição de parada seja antedida
 	/// </summary>
-	public void ExecutaJogoAteOFim (Action func)
-	{
+	public void ExecutaJogoAteOFim (Action func) {
 		while (!deveEncerrarJogo ()) {
 			func ();
 			ExecutaJogada ();
@@ -87,8 +92,7 @@ public class GameManager:MonoBehaviour
 	/// Condição de parada para que o jogo se declare encerrado (
 	/// </summary>
 	/// <param name="rodada">Rodada.</param>
-	private bool deveEncerrarJogo ()
-	{
+	private bool deveEncerrarJogo () {
 		return playersAtuaisManager.restaSomenteUm () || rodada >= numeroMaximoRodadas;
 	}
 
@@ -102,8 +106,7 @@ public class GameManager:MonoBehaviour
 	/// 4: Caso ele tenha saldo negativo ele é eliminado do jogo
 	/// 
 	/// </summary>
-	public void ExecutaJogada ()
-	{
+	public void ExecutaJogada () {
 		rodada++;
 		Player playerAtual = playersAtuaisManager.GetProximoPlayer ();
 		playerAtual.ExecutarJogada ();
@@ -113,20 +116,16 @@ public class GameManager:MonoBehaviour
 
 	}
 
-	private void eliminaPlayer (Player player)
-	{
+	private void eliminaPlayer (Player player) {
 		tabuleiroManager.DisponibilizaCasas (player);
 		playersAtuaisManager.EliminaPlayer (player);
 	}
-
-
 
 	/// <summary>
 	/// Utiliza o lançamento de dados de cada player para decidir a ordem de jogo
 	/// </summary>
 	/// <param name="players">Players.</param>
-	private List<Player> decideOrdemDePlayers (List<Player> players)
-	{
+	private List<Player> decideOrdemDePlayers (List<Player> players) {
 		List<Player> melhoresPlayers = new List<Player> ();
 		List<Player> playersRestantes = new List<Player> (players);
 		while (playersRestantes.Count > 0) {
@@ -137,12 +136,15 @@ public class GameManager:MonoBehaviour
 		return melhoresPlayers;
 	}
 
+	private void NotificaFimJogada () {
+		ExecutaJogada ();
+	}
+
 	/// <summary>
 	/// Função recursiva que em caso de empate nos dados chama a si própria com os players empatados
 	/// </summary>
 	/// <param name="players">Players.</param>
-	private Player selecionaMelhorPlayersNoDado (List<Player> players)
-	{
+	private Player selecionaMelhorPlayersNoDado (List<Player> players) {
 		List<Player> melhoresPlayers = new List<Player> ();
 		int maiorNumero = 0;
 		players.ForEach (p => {
@@ -158,22 +160,29 @@ public class GameManager:MonoBehaviour
 		if (melhoresPlayers.Count != 1) {
 			return selecionaMelhorPlayersNoDado (melhoresPlayers);
 		} else {
-			return melhoresPlayers [0];
+			return melhoresPlayers[0];
 		}
 	}
 
-	private List<CasaTabuleiro> obtemCasasTabuleiroDoArquivo (string nome)
-	{
+	private List<CasaTabuleiro> obtemCasasTabuleiroDoArquivo (string nome) {
 		List<CasaTabuleiro> casasLidas = new List<CasaTabuleiro> ();
+		GameObject parent = new GameObject ("Casas Tabuleiro");
 		string[] linhas = System.IO.File.ReadAllLines (@nome);
 		for (int i = 0; i < linhas.Length - 1; i++) {
-			string[] valores = linhas [i].Split (new string[]{ " " }, System.StringSplitOptions.RemoveEmptyEntries);
-			string valorCompra = valores [0].Trim ();
-			string valorAluguel = valores [1].Trim ();
-
-			casasLidas.Add (new CasaTabuleiro (int.Parse (valorCompra), int.Parse (valorAluguel)));
+			string[] valores = linhas[i].Split (new string[] { " " }, System.StringSplitOptions.RemoveEmptyEntries);
+			string valorCompra = valores[0].Trim ();
+			string valorAluguel = valores[1].Trim ();
+			GameObject go = GameObject.Instantiate (Resources.Load ("CasaTabuleiro"), parent.transform) as GameObject;
+			go.name = "Casa " + i + "(" + valorCompra + "," + valorAluguel + ")";
+			CasaTabuleiro casa = go.GetComponent<CasaTabuleiro> ();
+			casa.Init (int.Parse (valorCompra), int.Parse (valorAluguel));
+			casasLidas.Add (casa);
 		}
 		return casasLidas;
+	}
+
+	public void ApresentaCompraParaPlayer (CasaTabuleiro casa, Action<bool> then) {
+		compraCasa.ApresentaCompraParaPlayer (casa, then);
 	}
 
 }

@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /// <summary>
 /// Configuracoes possíveis para o jogo.
 /// </summary>
-public class ConfiguracoesJogo
-{
+public class ConfiguracoesJogo {
 	public int dinheiroInicial;
 	public List<int> opcoesDado;
 	public int valorRecebidoPorVoltaCompleta;
@@ -15,10 +13,9 @@ public class ConfiguracoesJogo
 
 	public List<CasaTabuleiro> casasTabuleiro;
 
-	public ConfiguracoesJogo ()
-	{
+	public ConfiguracoesJogo () {
 		dinheiroInicial = 300;
-		opcoesDado = new List<int>{ 1, 2, 3, 4, 5, 6 };
+		opcoesDado = new List<int> { 1, 2, 3, 4, 5, 6 };
 		valorRecebidoPorVoltaCompleta = 100;
 		numeroMaximoRodadas = 1000;
 	}

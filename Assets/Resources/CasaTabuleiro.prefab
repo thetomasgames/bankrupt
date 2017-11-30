@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4063701167568156}
   - component: {fileID: 212167642420923654}
-  - component: {fileID: 114228413012679822}
+  - component: {fileID: 114757942052214368}
   m_Layer: 0
   m_Name: CasaTabuleiro
   m_TagString: Untagged
@@ -115,19 +115,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114228413012679822
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1089984537580202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5dfa9b46ed693458e294bb33895c3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textoCompra: {fileID: 114582199263482862}
-  textoAluguel: {fileID: 114402473829235758}
 --- !u!114 &114402473829235758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -198,6 +185,21 @@ MonoBehaviour:
   m_Text: '120
 
 '
+--- !u!114 &114757942052214368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1089984537580202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54a045face3a0a45bdecc1700c6cd66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valorCompra: 0
+  valorAluguel: 0
+  textoCompra: {fileID: 114582199263482862}
+  textoAluguel: {fileID: 114402473829235758}
 --- !u!114 &114758409733843866
 MonoBehaviour:
   m_ObjectHideFlags: 1

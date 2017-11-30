@@ -3,23 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Player impulsivo que compra sempre que tem o valor disponível.
-/// </summary>
-public class PlayerImpulsivo : Player {
+public class PlayerReal : Player {
+
+	Action<bool> then;
+
 	public void SetValores (Banco banco, TabuleiroManager tabuleiroManager, Dado dado, int valorRecebidoPorVoltaCompleta) {
 		base.SetValores (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta);
-
 		this.gameObject.name = this.ToString ();
 	}
 
 	public override void DecideComprar (int saldoAtual, CasaTabuleiro casa, Action<bool> then) {
-		then (saldoAtual >= casa.valorCompra);
+		this.then = then;
+		GameManager.Instance.ApresentaCompraParaPlayer (casa, then);
 	}
 
 	public override string ToString () {
-		return "Sr. Impulsivo";
-
+		return "Sr. Real";
 	}
 
 }

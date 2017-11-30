@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\Banco.cs" />
      <Compile Include="Assets\CasaTabuleiro.cs" />
+     <Compile Include="Assets\CompraCasa.cs" />
      <Compile Include="Assets\ConfiguracoesJogo.cs" />
      <Compile Include="Assets\Dado.cs" />
      <Compile Include="Assets\DadoRoladoListener.cs" />
@@ -64,6 +65,7 @@
      <Compile Include="Assets\PlayerExigente.cs" />
      <Compile Include="Assets\PlayerFactory.cs" />
      <Compile Include="Assets\PlayerImpulsivo.cs" />
+     <Compile Include="Assets\PlayerReal.cs" />
      <Compile Include="Assets\PlayersAtuaisManager.cs" />
      <Compile Include="Assets\Program.cs" />
      <Compile Include="Assets\StatusCasaTabuleiro.cs" />
