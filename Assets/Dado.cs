@@ -24,7 +24,7 @@ public class Dado : MonoBehaviour {
 	/// <summary>
 	/// Retorna uma das opções possíveis com chances equiprovaveis.
 	/// </summary>
-	public void RolarSimulando (Func<int, int> next) {
+	public void RolarSimulando (Action<int> next) {
 		StartCoroutine (simulaDadoRolando (next));
 	}
 
@@ -32,7 +32,7 @@ public class Dado : MonoBehaviour {
 		return opcoes[rand.Next (opcoes.Count)];
 	}
 
-	IEnumerator simulaDadoRolando (Func<int, int> next) {
+	IEnumerator simulaDadoRolando (Action<int> next) {
 		Vector3 startPos = transform.position;
 		for (int i = 0; i < 10; i++) {
 			valor = Rolar ();

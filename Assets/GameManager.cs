@@ -57,6 +57,10 @@ public class GameManager : MonoBehaviour {
 		numeroMaximoRodadas = configuracoes.numeroMaximoRodadas;
 	}
 
+	public Player GetPlayerAtual () {
+		return playersAtuaisManager.GetPlayerAtual ();
+	}
+
 	/// <summary>
 	/// Retorna o vencedor, levando em conta e caso de empate os critérios: 
 	/// 1: Saldo no banco
@@ -70,7 +74,7 @@ public class GameManager : MonoBehaviour {
 			if (banco.GetSaldo (vencedores[0]) == banco.GetSaldo (vencedores[1])) {
 				Player proximoPlayer;
 				do {
-					proximoPlayer = playersAtuaisManager.GetProximoPlayer ();
+					proximoPlayer = playersAtuaisManager.PassaAVezParaProximo ();
 				} while (!(proximoPlayer.Equals (vencedores[0]) || proximoPlayer.Equals (vencedores[1])));
 				return proximoPlayer;
 			}
@@ -108,11 +112,8 @@ public class GameManager : MonoBehaviour {
 	/// </summary>
 	public void ExecutaJogada () {
 		rodada++;
-		Player playerAtual = playersAtuaisManager.GetProximoPlayer ();
+		Player playerAtual = GetPlayerAtual ();
 		playerAtual.ExecutarJogada ();
-		if (banco.TemSaldoNegativo (playerAtual)) {
-			eliminaPlayer (playerAtual);
-		}
 
 	}
 
@@ -137,6 +138,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void NotificaFimJogada () {
+		Player playerAtual = GetPlayerAtual ();
+		if (banco.TemSaldoNegativo (playerAtual)) {
+			eliminaPlayer (playerAtual);
+		}
+		playersAtuaisManager.PassaAVezParaProximo ();
 		ExecutaJogada ();
 	}
 

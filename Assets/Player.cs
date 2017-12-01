@@ -30,8 +30,8 @@ public abstract class Player : MonoBehaviour {
 				banco.AdicionaSaldo (this, valorRecebidoPorVoltaCompleta);
 			}
 			CasaTabuleiro casaAtual = tabuleiroManager.GetCasaAtual (this);
+			tabuleiroManager.GetDonoDaCasa(casaAtual);
 			StartCoroutine (movimentaPlayer (casaAtual.transform.position));
-			return 0;
 		});
 
 	}

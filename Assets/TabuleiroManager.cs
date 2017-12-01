@@ -118,4 +118,8 @@ public class TabuleiroManager : MonoBehaviour {
 		}
 		casas.ForEach (c => casasCompradasPorPlayer[c] = null);
 	}
+
+	public int getNumeroPlayersPorCasa (CasaTabuleiro casa) {
+		return casas.IndexOf (casa);
+	}
 }

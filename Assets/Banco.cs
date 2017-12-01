@@ -54,9 +54,12 @@ public class Banco : MonoBehaviour {
 
 	private void atualizaTextoSaldos () {
 		string text = "";
-
 		foreach (var kv in contas) {
-			text += kv.Key.ToString () + ": " + kv.Value + "\n";
+			string textoPlayer = kv.Key.ToString ();
+			if (kv.Key == GameManager.Instance.GetPlayerAtual ()) {
+				textoPlayer = "<b>" + textoPlayer + "</b>";
+			}
+			text += "<color=#" + ColorUtility.ToHtmlStringRGB (kv.Key.GetCor ()) + ">" + textoPlayer + "</color>: " + kv.Value + "\n";
 		}
 		textoSaldos.text = text;
 	}
