@@ -23,4 +23,27 @@ public class PlayerExigente : Player {
 	public override string ToString () {
 		return "Sr. Exigente";
 	}
+
+	protected override string[] GetReacaoPorTipoEvento (TipoEvento tipo) {
+		switch (tipo) {
+			case TipoEvento.SuaVezDeJogar:
+				return new [] { "Minha vez!" };
+			case TipoEvento.PagouAluguel:
+				return new [] { "Dinheiro saindo..." };
+			case TipoEvento.RecebeuAluguel:
+				return new [] { "Menos de " + valorMinimoAluguel + " eu nem quero" };
+			case TipoEvento.FicouComPoucoDinheiro:
+				return new [] { "Vou me recuperar ainda" };
+			case TipoEvento.ComprouCasa:
+				return new [] { "Essa vai render bastante" };
+			case TipoEvento.FoiEliminado:
+				return new [] { "Estava indo bem :(" };
+			case TipoEvento.OutroPlayerEliminado:
+				return new [] { "Menos gente pra me render dinheiro..." };
+			case TipoEvento.OutroPlayerFicouComPoucoDinheiro:
+				return new [] { "Espero que se recupere" };
+			default:
+				return new string[] { };
+		}
+	}
 }

@@ -30,7 +30,9 @@ public class PlayersAtuaisManager {
 		if (indicePlayerAtual >= players.Count) {
 			indicePlayerAtual = 0;
 		}
-		return GetPlayerAtual ();
+		Player playerAtual = GetPlayerAtual ();
+		playerAtual.ReageAEvento (TipoEvento.SuaVezDeJogar);
+		return playerAtual;
 	}
 
 	public Player GetPlayerAtual () {
@@ -44,6 +46,9 @@ public class PlayersAtuaisManager {
 	public void EliminaPlayer (Player player) {
 		if (indicePlayerAtual > players.IndexOf (player)) {
 			indicePlayerAtual--;
+		}
+		foreach (var p in players) {
+			p.ReageAEvento (p == player?TipoEvento.FoiEliminado : TipoEvento.OutroPlayerEliminado);
 		}
 		this.players.Remove (player);
 	}

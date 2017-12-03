@@ -13,13 +13,17 @@ public abstract class Player : MonoBehaviour {
 		this.tabuleiroManager = tabuleiroManager;
 		this.dado = dado;
 		this.valorRecebidoPorVoltaCompleta = valorRecebidoPorVoltaCompleta;
+		this.rand = new System.Random (System.Environment.TickCount);
 	}
+
+	protected System.Random rand;
 
 	private Color cor;
 	private Banco banco;
 	private TabuleiroManager tabuleiroManager;
 	private Dado dado;
 	private int valorRecebidoPorVoltaCompleta;
+	protected abstract string[] GetReacaoPorTipoEvento (TipoEvento tipo);
 
 	public abstract void DecideComprar (int saldoAtual, CasaTabuleiro casa, Action<bool> then);
 
@@ -30,8 +34,8 @@ public abstract class Player : MonoBehaviour {
 				banco.AdicionaSaldo (this, valorRecebidoPorVoltaCompleta);
 			}
 			CasaTabuleiro casaAtual = tabuleiroManager.GetCasaAtual (this);
-			tabuleiroManager.GetDonoDaCasa(casaAtual);
-			StartCoroutine (movimentaPlayer (casaAtual.transform.position));
+			tabuleiroManager.GetDonoDaCasa (casaAtual);
+			movimentaPlayer (casaAtual.transform.position, decideComprar);
 		});
 
 	}
@@ -58,17 +62,23 @@ public abstract class Player : MonoBehaviour {
 	}
 
 	private void finalizaJogada () {
-		GameManager.Instance.ExecutaJogada ();
+		GameManager.Instance.NotificaFimJogada ();
 	}
 
-	IEnumerator movimentaPlayer (Vector3 target) {
+	public void movimentaPlayer (Vector3 target) {
+		movimentaPlayerEnumerator (target, () => { });
+	}
+	public void movimentaPlayer (Vector3 target, Action then) {
+		StartCoroutine (movimentaPlayerEnumerator (target, then));
+	}
+	private IEnumerator movimentaPlayerEnumerator (Vector3 target, Action then) {
 		Vector3 startPos = transform.position;
 		for (float i = 0; i < 1; i += 0.05f) {
 			yield return new WaitForSeconds (0.01f);
 			transform.position = Vector3.Lerp (startPos, target, i);
 		}
 		yield return new WaitForSeconds (0.5f);
-		decideComprar ();
+		then ();
 		yield return null;
 	}
 
@@ -84,6 +94,13 @@ public abstract class Player : MonoBehaviour {
 
 	public Color GetCor () {
 		return this.cor;
+	}
+
+	public void ReageAEvento (TipoEvento tipo) {
+		string[] textos = GetReacaoPorTipoEvento (tipo);
+		if (textos.Length > 0) {
+			GameManager.Instance.CriaCaixaDialogo (transform.position, textos[rand.Next (textos.Length - 1)]);
+		}
 	}
 
 }

@@ -12,7 +12,7 @@ public class CompraCasa : MonoBehaviour {
 	private Action<bool> then;
 
 	public void ApresentaCompraParaPlayer (CasaTabuleiro casa, Action<bool> then) {
-		this.texto.text = "Comprar " + casa.ToString () + "?";
+		this.texto.text = "Comprar casa? " + casa.ToString ();
 		this.then = then;
 		this.canvas.enabled = true;
 	}

@@ -9,6 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 public class Banco : MonoBehaviour {
 
+	Transform objetosDinheiro;
 	public Text textoSaldos;
 	private Dictionary<Player, int> contas;
 
@@ -32,11 +33,29 @@ public class Banco : MonoBehaviour {
 
 	public void PagaAluguel (Player playerPagante, Player playerBeneficiado, int valorAluguel) {
 		removeSaldo (playerPagante, valorAluguel);
+		playerPagante.ReageAEvento (TipoEvento.PagouAluguel);
+
 		AdicionaSaldo (playerBeneficiado, valorAluguel);
+		playerBeneficiado.ReageAEvento (TipoEvento.RecebeuAluguel);
+		StartCoroutine (instanciaDinheiro (playerPagante, playerBeneficiado, valorAluguel));
+	}
+
+	private IEnumerator instanciaDinheiro (Player playerPagante, Player playerBeneficiado, int valor) {
+		if (objetosDinheiro == null) {
+			objetosDinheiro = new GameObject ("Objetos dinheiro").transform;
+		}
+		for (int i = 0, items = valor / 10; i < items; i++) {
+			yield return new WaitForSeconds (0.1f);
+			GameObject dinheiro = GameObject.Instantiate (Resources.Load ("dinheiro"), objetosDinheiro) as GameObject;
+			dinheiro.GetComponent<Dinheiro> ().Init (playerPagante.transform.position + new Vector3 (1, 1, 0) * 0.3f * i, playerBeneficiado.transform);
+		}
+		yield return null;
 	}
 
 	public void CompraCasa (Player player, CasaTabuleiro casa) {
 		removeSaldo (player, casa.valorCompra);
+		player.ReageAEvento (TipoEvento.ComprouCasa);
+
 	}
 
 	public bool TemSaldoNegativo (Player player) {
@@ -50,6 +69,11 @@ public class Banco : MonoBehaviour {
 
 	private void removeSaldo (Player player, int quantidade) {
 		realizaMovimentacao (player, -quantidade);
+		if (contas[player] < 100) {
+			foreach (var p in contas.Keys) {
+				p.ReageAEvento (p == player?TipoEvento.FicouComPoucoDinheiro : TipoEvento.OutroPlayerFicouComPoucoDinheiro);
+			}
+		}
 	}
 
 	private void atualizaTextoSaldos () {

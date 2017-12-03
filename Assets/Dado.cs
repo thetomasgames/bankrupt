@@ -34,12 +34,12 @@ public class Dado : MonoBehaviour {
 
 	IEnumerator simulaDadoRolando (Action<int> next) {
 		Vector3 startPos = transform.position;
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 5; i++) {
 			valor = Rolar ();
 			texto.text = valor.ToString ();
 			transform.position = startPos + new Vector3 ((i % 2 == 0 ? 1 : -1) * deslocamentoEnquantoRola,
 				2 * deslocamentoEnquantoRola, 0);
-			yield return new WaitForSeconds (0.15f);
+			yield return new WaitForSeconds (0.1f);
 		}
 		transform.position = startPos;
 		yield return new WaitForSeconds (0.5f);

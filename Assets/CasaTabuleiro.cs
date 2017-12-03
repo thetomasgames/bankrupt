@@ -25,4 +25,8 @@ public class CasaTabuleiro : MonoBehaviour {
 		GetComponent<SpriteRenderer> ().color = cor;
 	}
 
+	public override string ToString () {
+		return "Compra: $" + this.valorCompra + ", Aluguel:$" + this.valorAluguel;
+	}
+
 }

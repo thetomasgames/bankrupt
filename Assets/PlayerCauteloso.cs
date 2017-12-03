@@ -26,5 +26,27 @@ public class PlayerCauteloso : Player {
 		return "Sr. Cauteloso";
 
 	}
+	protected override string[] GetReacaoPorTipoEvento (TipoEvento tipo) {
+		switch (tipo) {
+			case TipoEvento.SuaVezDeJogar:
+				return new [] { "Vou com calma" };
+			case TipoEvento.PagouAluguel:
+				return new [] { "Eita" };
+			case TipoEvento.RecebeuAluguel:
+				return new [] { "Devagar e sempre" };
+			case TipoEvento.FicouComPoucoDinheiro:
+				return new [] { ":O" };
+			case TipoEvento.ComprouCasa:
+				return new [] { "Ainda me sobra bastante dinheiro" };
+			case TipoEvento.FoiEliminado:
+				return new [] { "Droga" };
+			case TipoEvento.OutroPlayerEliminado:
+				return new [] { "Não teve cautela..." };
+			case TipoEvento.OutroPlayerFicouComPoucoDinheiro:
+				return new [] { "Jajá ele vai cair" };
+			default:
+				return new string[] { };
+		}
+	}
 
 }

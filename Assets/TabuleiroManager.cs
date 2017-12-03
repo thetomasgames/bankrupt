@@ -18,7 +18,7 @@ public class TabuleiroManager : MonoBehaviour {
 	public void IniciaCasas (List<CasaTabuleiro> casas, List<Player> players) {
 		this.casas = casas;
 		for (var i = 0; i < casas.Count; i++) {
-			casas[i].transform.position = getPosicaoCasaPorIndice (i, casas.Count);
+			casas[i].transform.position = getPosicaoCasaPorIndice (i);
 		}
 		players.ForEach (p => p.transform.position = casas[0].transform.position);
 		casasCompradasPorPlayer = new Dictionary<CasaTabuleiro, Player> ();
@@ -29,7 +29,8 @@ public class TabuleiroManager : MonoBehaviour {
 		}
 	}
 
-	private Vector3 getPosicaoCasaPorIndice (int indice, int total) {
+	private Vector3 getPosicaoCasaPorIndice (int indice) {
+		int total = casas.Count;
 		const int width = 23;
 		const int height = 18;
 		const float heightOffset = 3f;
@@ -62,7 +63,7 @@ public class TabuleiroManager : MonoBehaviour {
 	public bool AndarCasasVerificandoVoltaCompleta (Player player, int numeroCasas) {
 		casaAtualPorPlayer[player] += numeroCasas;
 		if (casaAtualPorPlayer[player] >= casas.Count) {
-			casaAtualPorPlayer[player] = 0;
+			casaAtualPorPlayer[player] = casaAtualPorPlayer[player] % casas.Count;
 			return true;
 		} else {
 			return false;
@@ -103,6 +104,7 @@ public class TabuleiroManager : MonoBehaviour {
 	public void ComprarCasa (Player player, CasaTabuleiro casa) {
 		casasCompradasPorPlayer[casa] = player;
 		casa.atualizaCor (player.GetCor ());
+		player.movimentaPlayer (casa.transform.position, () => { });
 	}
 
 	/// <summary>
@@ -116,7 +118,11 @@ public class TabuleiroManager : MonoBehaviour {
 				casas.Add (casaPlayer.Key);
 			}
 		}
-		casas.ForEach (c => casasCompradasPorPlayer[c] = null);
+		casas.ForEach (c => {
+			casasCompradasPorPlayer[c] = null;
+			c.atualizaCor (Color.white);
+		});
+		player.movimentaPlayer (getPosicaoCasaPorIndice (0) - Vector3.left * 5);
 	}
 
 	public int getNumeroPlayersPorCasa (CasaTabuleiro casa) {

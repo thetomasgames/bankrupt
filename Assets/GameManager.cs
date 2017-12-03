@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	private Transform caixasDialogo;
 	public CompraCasa compraCasa;
 
 	public Banco banco;
@@ -39,7 +40,9 @@ public class GameManager : MonoBehaviour {
 		dado = GameObject.Instantiate (Resources.Load ("Dado") as GameObject).GetComponent<Dado> ();
 		dado.SetValues (configuracoes.opcoesDado);
 		valorRecebidoPorVoltaCompleta = configuracoes.valorRecebidoPorVoltaCompleta;
-		tabuleiroManager = new TabuleiroManager ();
+		GameObject tabuleiroGo = new GameObject ();
+		tabuleiroGo.AddComponent<TabuleiroManager> ();
+		tabuleiroManager = tabuleiroGo.GetComponent<TabuleiroManager> ();
 		List<Player> listaplayers = new List<Player> {
 			PlayerFactory.criaPlayerImpulsivo (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta),
 			PlayerFactory.criaPlayerExigente (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta, 50),
@@ -100,6 +103,10 @@ public class GameManager : MonoBehaviour {
 		return playersAtuaisManager.restaSomenteUm () || rodada >= numeroMaximoRodadas;
 	}
 
+	public void IniciaJogo () {
+		ExecutaJogada ();
+	}
+
 	/// <summary>
 	/// Em uma jogada ocorre:
 	/// 1: O player do qual é a vez é selecionado
@@ -110,11 +117,10 @@ public class GameManager : MonoBehaviour {
 	/// 4: Caso ele tenha saldo negativo ele é eliminado do jogo
 	/// 
 	/// </summary>
-	public void ExecutaJogada () {
+	private void ExecutaJogada () {
 		rodada++;
 		Player playerAtual = GetPlayerAtual ();
 		playerAtual.ExecutarJogada ();
-
 	}
 
 	private void eliminaPlayer (Player player) {
@@ -137,7 +143,7 @@ public class GameManager : MonoBehaviour {
 		return melhoresPlayers;
 	}
 
-	private void NotificaFimJogada () {
+	public void NotificaFimJogada () {
 		Player playerAtual = GetPlayerAtual ();
 		if (banco.TemSaldoNegativo (playerAtual)) {
 			eliminaPlayer (playerAtual);
@@ -189,6 +195,14 @@ public class GameManager : MonoBehaviour {
 
 	public void ApresentaCompraParaPlayer (CasaTabuleiro casa, Action<bool> then) {
 		compraCasa.ApresentaCompraParaPlayer (casa, then);
+	}
+
+	public void CriaCaixaDialogo (Vector3 posicao, string texto) {
+		if (caixasDialogo == null) {
+			caixasDialogo = new GameObject ("Caixas dialogo").transform;
+		}
+		GameObject go = GameObject.Instantiate (Resources.Load ("caixaDialogo"), caixasDialogo) as GameObject;
+		go.GetComponent<CaixaDialogo> ().Init (posicao, texto);
 	}
 
 }

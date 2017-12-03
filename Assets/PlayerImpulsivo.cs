@@ -22,4 +22,26 @@ public class PlayerImpulsivo : Player {
 
 	}
 
+	protected override string[] GetReacaoPorTipoEvento (TipoEvento tipo) {
+		switch (tipo) {
+			case TipoEvento.SuaVezDeJogar:
+				return new [] { "ATÉ QUE ENFIM" };
+			case TipoEvento.PagouAluguel:
+				return new [] { "AH NÃO" };
+			case TipoEvento.RecebeuAluguel:
+				return new [] { "EBAAAAA" };
+			case TipoEvento.FicouComPoucoDinheiro:
+				return new [] { "AINDA DÁ PRA GANHAR" };
+			case TipoEvento.ComprouCasa:
+				return new [] { "EU COMPRO MESMO" };
+			case TipoEvento.FoiEliminado:
+				return new [] { "NAAAAAAAAO" };
+			case TipoEvento.OutroPlayerEliminado:
+				return new [] { "FALTAM POUCOS" };
+			case TipoEvento.OutroPlayerFicouComPoucoDinheiro:
+				return new [] { "A HORA DELE TA CHEGANDO" };
+			default:
+				return new string[] { };
+		}
+	}
 }
