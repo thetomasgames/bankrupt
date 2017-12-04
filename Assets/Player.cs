@@ -98,7 +98,7 @@ public abstract class Player : MonoBehaviour {
 
 	public void ReageAEvento (TipoEvento tipo) {
 		string[] textos = GetReacaoPorTipoEvento (tipo);
-		if (textos.Length > 0) {
+		if (textos.Length > 0 && rand.NextDouble () < 0.2f) {
 			GameManager.Instance.CriaCaixaDialogo (transform.position, textos[rand.Next (textos.Length - 1)]);
 		}
 	}
