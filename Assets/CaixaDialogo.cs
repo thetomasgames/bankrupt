@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class CaixaDialogo : MonoBehaviour {
 
 	public Text texto;
-	public void Init (Vector3 posicao, string text) {
-		transform.position = posicao;
+	public void Init (string text) {
 		this.texto.text = text;
 		Destroy (this.gameObject, 1.5f);
 	}

@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -135,11 +135,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 21d16ed28b9d9df42962e4451340a207, type: 3}
-    m_FontSize: 34
+    m_FontSize: 59
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 45
+    m_MaxSize: 67
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -195,10 +195,10 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 3, y: 2.6}
+  m_DrawMode: 2
+  m_Size: {x: 4.18, y: 3.43}
   m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
+  m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!222 &222558969910080744
@@ -243,8 +243,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1.506, y: -1.59}
-  m_SizeDelta: {x: 245.9922, y: 157.9299}
+  m_AnchoredPosition: {x: -2.105, y: -2.118}
+  m_SizeDelta: {x: 352.584, y: 221.378}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224486580607559680
 RectTransform:

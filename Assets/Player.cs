@@ -35,6 +35,7 @@ public abstract class Player : MonoBehaviour {
 			}
 			CasaTabuleiro casaAtual = tabuleiroManager.GetCasaAtual (this);
 			tabuleiroManager.GetDonoDaCasa (casaAtual);
+			tabuleiroManager.AbreEspacoParaPlayer (casaAtual, this);
 			movimentaPlayer (casaAtual.transform.position, decideComprar);
 		});
 
@@ -66,19 +67,21 @@ public abstract class Player : MonoBehaviour {
 	}
 
 	public void movimentaPlayer (Vector3 target) {
-		movimentaPlayerEnumerator (target, () => { });
+		movimentaPlayer (target, () => { });
 	}
 	public void movimentaPlayer (Vector3 target, Action then) {
 		StartCoroutine (movimentaPlayerEnumerator (target, then));
 	}
 	private IEnumerator movimentaPlayerEnumerator (Vector3 target, Action then) {
 		Vector3 startPos = transform.position;
-		for (float i = 0; i < 1; i += 0.05f) {
+		for (float i = 0; i <= 1; i += 0.05f) {
 			yield return new WaitForSeconds (0.01f);
 			transform.position = Vector3.Lerp (startPos, target, i);
 		}
-		yield return new WaitForSeconds (0.5f);
+		transform.position = target;
+		yield return new WaitForSeconds (0.25f);
 		then ();
+		yield return new WaitForSeconds (0.25f);
 		yield return null;
 	}
 
@@ -98,8 +101,9 @@ public abstract class Player : MonoBehaviour {
 
 	public void ReageAEvento (TipoEvento tipo) {
 		string[] textos = GetReacaoPorTipoEvento (tipo);
-		if (textos.Length > 0 && rand.NextDouble () < 0.2f) {
-			GameManager.Instance.CriaCaixaDialogo (transform.position, textos[rand.Next (textos.Length - 1)]);
+		if (textos.Length > 0 && rand.NextDouble () < 0.3f &&
+			tabuleiroManager.getNumeroPlayersPorCasa (tabuleiroManager.GetCasaAtual (this)) == 1) {
+			GameManager.Instance.CriaCaixaDialogo (transform, textos[rand.Next (textos.Length - 1)]);
 		}
 	}
 

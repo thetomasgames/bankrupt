@@ -11,11 +11,13 @@ public class TabuleiroManager : MonoBehaviour {
 	private Dictionary<Player, int> casaAtualPorPlayer;
 	private Dictionary<CasaTabuleiro, Player> casasCompradasPorPlayer;
 
-	public TabuleiroManager () {
+	private float deslocamentoDentroDaCasa;
 
-	}
+	private int numeroInicialPlayers;
 
 	public void IniciaCasas (List<CasaTabuleiro> casas, List<Player> players) {
+		this.deslocamentoDentroDaCasa = 1.5f;
+		this.numeroInicialPlayers = players.Count;
 		this.casas = casas;
 		for (var i = 0; i < casas.Count; i++) {
 			casas[i].transform.position = getPosicaoCasaPorIndice (i);
@@ -122,7 +124,26 @@ public class TabuleiroManager : MonoBehaviour {
 			casasCompradasPorPlayer[c] = null;
 			c.atualizaCor (Color.white);
 		});
-		player.movimentaPlayer (getPosicaoCasaPorIndice (0) - Vector3.left * 5);
+		casaAtualPorPlayer.Remove (player);
+		Vector3 posicao = getPosicaoCasaPorIndice (0) + Vector3.left * 5;
+		posicao += Vector3.left * (numeroInicialPlayers + 1 - casaAtualPorPlayer.Keys.Count) *
+			deslocamentoDentroDaCasa;
+		player.movimentaPlayer (posicao);
+	}
+
+	public void AbreEspacoParaPlayer (CasaTabuleiro casa, Player player) {
+		int offset = 1;
+		foreach (var kv in casaAtualPorPlayer) {
+			if (kv.Key != player && casas[kv.Value] == casa) { // se já tem um player diferente na casa
+				kv.Key.movimentaPlayer (casa.transform.position +
+					new Vector3 (offset * deslocamentoDentroDaCasa, 0, 0));
+				if (offset < 0) {
+					offset = -offset + 1;
+				} else {
+					offset = -offset;
+				}
+			}
+		}
 	}
 
 	public int getNumeroPlayersPorCasa (CasaTabuleiro casa) {

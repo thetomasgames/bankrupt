@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -30,10 +31,12 @@ public class GameManager : MonoBehaviour {
 
 	public int rodada;
 
-	private List<FimJogadaListener> fimJogadaListener = new List<FimJogadaListener> ();
-	private List<DadoRoladoListener> dadoRoladoListener = new List<DadoRoladoListener> ();
+	public bool jogoIniciado;
+
+	public Button botaoIniciaJogo;
 
 	void Start () {
+		jogoIniciado = false;
 		ConfiguracoesJogo configuracoes = new ConfiguracoesJogo ();
 		configuracoes.casasTabuleiro = obtemCasasTabuleiroDoArquivo ("gameConfig.txt");
 		rodada = 0;
@@ -86,16 +89,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Executa a próxima jogada, rodada a rodada até que a condição de parada seja antedida
-	/// </summary>
-	public void ExecutaJogoAteOFim (Action func) {
-		while (!deveEncerrarJogo ()) {
-			func ();
-			ExecutaJogada ();
-		}
-	}
-
-	/// <summary>
 	/// Condição de parada para que o jogo se declare encerrado (
 	/// </summary>
 	/// <param name="rodada">Rodada.</param>
@@ -104,6 +97,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void IniciaJogo () {
+		botaoIniciaJogo.gameObject.active = false;
+		jogoIniciado = true;
 		ExecutaJogada ();
 	}
 
@@ -148,8 +143,12 @@ public class GameManager : MonoBehaviour {
 		if (banco.TemSaldoNegativo (playerAtual)) {
 			eliminaPlayer (playerAtual);
 		}
-		playersAtuaisManager.PassaAVezParaProximo ();
-		ExecutaJogada ();
+		if (!deveEncerrarJogo ()) {
+			playersAtuaisManager.PassaAVezParaProximo ();
+			ExecutaJogada ();
+		} else {
+			print ("ganhou");
+		}
 	}
 
 	/// <summary>
@@ -197,12 +196,12 @@ public class GameManager : MonoBehaviour {
 		compraCasa.ApresentaCompraParaPlayer (casa, then);
 	}
 
-	public void CriaCaixaDialogo (Vector3 posicao, string texto) {
+	public void CriaCaixaDialogo (Transform posicao, string texto) {
 		if (caixasDialogo == null) {
 			caixasDialogo = new GameObject ("Caixas dialogo").transform;
 		}
-		GameObject go = GameObject.Instantiate (Resources.Load ("caixaDialogo"), caixasDialogo) as GameObject;
-		go.GetComponent<CaixaDialogo> ().Init (posicao, texto);
+		GameObject go = GameObject.Instantiate (Resources.Load ("caixaDialogo"), posicao) as GameObject;
+		go.GetComponent<CaixaDialogo> ().Init (texto);
 	}
 
 }
