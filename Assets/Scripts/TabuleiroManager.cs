@@ -46,6 +46,7 @@ public class TabuleiroManager : MonoBehaviour {
 		} else if (percentual < 0.5f) {
 			curWidth = (0.25f - (percentual - 0.25f)) / 0.25f * width;
 			curHeight = -heightOffset;
+
 		} else if (percentual < 0.75f) {
 			curWidth = 0;
 			curHeight = (percentual - 0.5f) / 0.25f * height;

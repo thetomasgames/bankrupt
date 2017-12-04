@@ -31,7 +31,7 @@ public abstract class Player : MonoBehaviour {
 		dado.RolarSimulando ((numeroFaceDado) => {
 			bool completouVolta = tabuleiroManager.AndarCasasVerificandoVoltaCompleta (this, numeroFaceDado);
 			if (completouVolta) {
-				banco.AdicionaSaldo (this, valorRecebidoPorVoltaCompleta);
+				banco.AdicionaBonusVoltaCompleta (this, valorRecebidoPorVoltaCompleta);
 			}
 			CasaTabuleiro casaAtual = tabuleiroManager.GetCasaAtual (this);
 			tabuleiroManager.GetDonoDaCasa (casaAtual);

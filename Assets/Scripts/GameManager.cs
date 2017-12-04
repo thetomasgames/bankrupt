@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 
 	public Banco banco;
 	private TabuleiroManager tabuleiroManager;
-	private Dado dado;
+	public Dado dado;
 	private int valorRecebidoPorVoltaCompleta;
 
 	private PlayersAtuaisManager playersAtuaisManager;
@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour {
 		ConfiguracoesJogo configuracoes = new ConfiguracoesJogo ();
 		configuracoes.casasTabuleiro = obtemCasasTabuleiroDoArquivo ("gameConfig.txt");
 		rodada = 0;
-		dado = GameObject.Instantiate (Resources.Load ("Dado") as GameObject).GetComponent<Dado> ();
 		dado.SetValues (configuracoes.opcoesDado);
 		valorRecebidoPorVoltaCompleta = configuracoes.valorRecebidoPorVoltaCompleta;
 		GameObject tabuleiroGo = new GameObject ();

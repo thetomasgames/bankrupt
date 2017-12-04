@@ -23,7 +23,12 @@ public class Banco : MonoBehaviour {
 		return GetSaldo (player) >= quantidade;
 	}
 
-	public void AdicionaSaldo (Player player, int quantidade) {
+	public void AdicionaBonusVoltaCompleta (Player player, int valor) {
+		AdicionaSaldo (player, valor);
+		StartCoroutine (instanciaDinheiro (transform, player.transform, valor));
+	}
+
+	private void AdicionaSaldo (Player player, int quantidade) {
 		realizaMovimentacao (player, quantidade);
 	}
 
@@ -37,17 +42,17 @@ public class Banco : MonoBehaviour {
 
 		AdicionaSaldo (playerBeneficiado, valorAluguel);
 		playerBeneficiado.ReageAEvento (TipoEvento.RecebeuAluguel);
-		StartCoroutine (instanciaDinheiro (playerPagante, playerBeneficiado, valorAluguel));
+		StartCoroutine (instanciaDinheiro (playerPagante.transform, playerBeneficiado.transform, valorAluguel));
 	}
 
-	private IEnumerator instanciaDinheiro (Player playerPagante, Player playerBeneficiado, int valor) {
+	private IEnumerator instanciaDinheiro (Transform origemDinheiro, Transform playerBeneficiado, int valor) {
 		if (objetosDinheiro == null) {
 			objetosDinheiro = new GameObject ("Objetos dinheiro").transform;
 		}
-		for (int i = 0, items = valor / 10; i < items; i++) {
+		for (int i = 0, items = valor / 30; i < items; i++) {
 			yield return new WaitForSeconds (0.1f);
 			GameObject dinheiro = GameObject.Instantiate (Resources.Load ("dinheiro"), objetosDinheiro) as GameObject;
-			dinheiro.GetComponent<Dinheiro> ().Init (playerPagante.transform.position + new Vector3 (1, 1, 0) * 0.3f * i, playerBeneficiado.transform);
+			dinheiro.GetComponent<Dinheiro> ().Init (origemDinheiro.position + new Vector3 (1, 1, 0) * 0.1f * i, playerBeneficiado.transform);
 		}
 		yield return null;
 	}
@@ -55,6 +60,7 @@ public class Banco : MonoBehaviour {
 	public void CompraCasa (Player player, CasaTabuleiro casa) {
 		removeSaldo (player, casa.valorCompra);
 		player.ReageAEvento (TipoEvento.ComprouCasa);
+		StartCoroutine (instanciaDinheiro (player.transform, transform, casa.valorCompra));
 
 	}
 
