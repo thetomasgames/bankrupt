@@ -19,9 +19,10 @@ public class CasaTabuleiro : MonoBehaviour {
 		this.valorAluguel = valorAluguel;
 		this.textoCompra.text = valorCompra.ToString ();
 		this.textoAluguel.text = valorAluguel.ToString ();
+		AtualizaCor (Color.white);
 	}
 
-	public void atualizaCor (Color cor) {
+	public void AtualizaCor (Color cor) {
 		GetComponent<SpriteRenderer> ().color = cor;
 	}
 

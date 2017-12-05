@@ -8,7 +8,10 @@ using UnityEngine;
 /// </summary>
 public abstract class Player : MonoBehaviour {
 
+	public bool eliminado;
+
 	public void SetValores (Banco banco, TabuleiroManager tabuleiroManager, Dado dado, int valorRecebidoPorVoltaCompleta) {
+		this.eliminado = false;
 		this.banco = banco;
 		this.tabuleiroManager = tabuleiroManager;
 		this.dado = dado;
@@ -114,7 +117,7 @@ public abstract class Player : MonoBehaviour {
 	public void ReageAEvento (TipoEvento tipo) {
 		string[] textos = GetReacaoPorTipoEvento (tipo);
 		if (textos.Length > 0 && rand.NextDouble () < 0.3f &&
-			tabuleiroManager.GetCasaAtual (this) != null &&
+			!this.eliminado &&
 			tabuleiroManager.getNumeroPlayersPorCasa (tabuleiroManager.GetCasaAtual (this)) == 1) {
 			GameManager.Instance.CriaCaixaDialogo (transform, textos[rand.Next (textos.Length - 1)]);
 		}

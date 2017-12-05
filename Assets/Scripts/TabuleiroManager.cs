@@ -21,6 +21,7 @@ public class TabuleiroManager : MonoBehaviour {
 		this.casas = casas;
 		for (var i = 0; i < casas.Count; i++) {
 			casas[i].transform.position = getPosicaoCasaPorIndice (i);
+			casas[i].AtualizaCor (Color.white);
 		}
 		players.ForEach (p => p.transform.position = casas[0].transform.position);
 		casasCompradasPorPlayer = new Dictionary<CasaTabuleiro, Player> ();
@@ -84,11 +85,7 @@ public class TabuleiroManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="player">Player.</param>
 	public CasaTabuleiro GetCasaAtual (Player player) {
-		if (casaAtualPorPlayer[player] != null) {
-			return casas[casaAtualPorPlayer[player]];
-		} else {
-			return null;
-		}
+		return casas[casaAtualPorPlayer[player]];
 	}
 
 	/// <summary>
@@ -115,7 +112,7 @@ public class TabuleiroManager : MonoBehaviour {
 	/// <param name="casa">Casa.</param>
 	public void ComprarCasa (Player player, CasaTabuleiro casa) {
 		casasCompradasPorPlayer[casa] = player;
-		casa.atualizaCor (player.GetCor ());
+		casa.AtualizaCor (player.GetCor ());
 	}
 
 	/// <summary>
@@ -131,13 +128,14 @@ public class TabuleiroManager : MonoBehaviour {
 		}
 		casas.ForEach (c => {
 			casasCompradasPorPlayer[c] = null;
-			c.atualizaCor (Color.white);
+			c.AtualizaCor (Color.white);
 		});
 		casaAtualPorPlayer.Remove (player);
 		Vector3 posicao = getPosicaoCasaPorIndice (0) + Vector3.left * 5;
 		posicao += Vector3.left * (numeroInicialPlayers + 1 - casaAtualPorPlayer.Keys.Count) *
 			deslocamentoDentroDaCasa;
 		player.movimentaPlayer (posicao);
+		player.eliminado = true;
 	}
 
 	public void AbreEspacoParaPlayer (CasaTabuleiro casa, Player player) {

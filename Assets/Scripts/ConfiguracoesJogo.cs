@@ -16,7 +16,7 @@ public class ConfiguracoesJogo {
 	public ConfiguracoesJogo () {
 		dinheiroInicial = 300;
 		opcoesDado = new List<int> { 1, 2, 3, 4, 5, 6 };
-		valorRecebidoPorVoltaCompleta = 50;
+		valorRecebidoPorVoltaCompleta = 0;
 		numeroMaximoRodadas = 1000;
 	}
 }

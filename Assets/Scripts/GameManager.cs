@@ -35,6 +35,10 @@ public class GameManager : MonoBehaviour {
 
 	public Button botaoIniciaJogo;
 
+	private List<Player> listaplayers;
+	private List<CasaTabuleiro> casasTabuleiro;
+	private int dinheiroInicial;
+
 	void Start () {
 		jogoIniciado = false;
 		ConfiguracoesJogo configuracoes = new ConfiguracoesJogo ();
@@ -45,20 +49,19 @@ public class GameManager : MonoBehaviour {
 		GameObject tabuleiroGo = new GameObject ();
 		tabuleiroGo.AddComponent<TabuleiroManager> ();
 		tabuleiroManager = tabuleiroGo.GetComponent<TabuleiroManager> ();
-		List<Player> listaplayers = new List<Player> {
+		listaplayers = new List<Player> {
 			PlayerFactory.criaPlayerImpulsivo (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta),
 			PlayerFactory.criaPlayerExigente (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta, 50),
 			PlayerFactory.criaPlayerCauteloso (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta, 80),
 			PlayerFactory.criaPlayerAleatorio (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta),
 			PlayerFactory.criaPlayerReal (banco, tabuleiroManager, dado, valorRecebidoPorVoltaCompleta)
 		};
+		this.dinheiroInicial = configuracoes.dinheiroInicial;
+		this.casasTabuleiro = configuracoes.casasTabuleiro;
 		for (var i = 0; i < listaplayers.Count; i++) {
 			listaplayers[i].SetCor (Color.HSVToRGB ((float) i / listaplayers.Count, 1, 1));
 		}
-
-		playersAtuaisManager = new PlayersAtuaisManager (decideOrdemDePlayers (listaplayers));
-		tabuleiroManager.IniciaCasas (configuracoes.casasTabuleiro, listaplayers);
-		banco.IniciaContas (listaplayers, configuracoes.dinheiroInicial);
+		tabuleiroManager.IniciaCasas (casasTabuleiro, listaplayers);
 		numeroMaximoRodadas = configuracoes.numeroMaximoRodadas;
 	}
 
@@ -96,6 +99,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void IniciaJogo () {
+		playersAtuaisManager = new PlayersAtuaisManager (decideOrdemDePlayers (listaplayers));
+		banco.IniciaContas (listaplayers, dinheiroInicial);
+		tabuleiroManager.IniciaCasas (casasTabuleiro, listaplayers);
 		botaoIniciaJogo.gameObject.active = false;
 		jogoIniciado = true;
 		ExecutaJogada ();
@@ -146,7 +152,7 @@ public class GameManager : MonoBehaviour {
 			playersAtuaisManager.PassaAVezParaProximo ();
 			ExecutaJogada ();
 		} else {
-			print ("ganhou");
+			botaoIniciaJogo.gameObject.active = true;
 		}
 	}
 
