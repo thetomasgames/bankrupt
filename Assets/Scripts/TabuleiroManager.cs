@@ -63,13 +63,18 @@ public class TabuleiroManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="player">Player.</param>
 	/// <param name="numeroCasas">Numero de casas.</param>
-	public bool AndarCasasVerificandoVoltaCompleta (Player player, int numeroCasas) {
-		casaAtualPorPlayer[player] += numeroCasas;
-		if (casaAtualPorPlayer[player] >= casas.Count) {
-			casaAtualPorPlayer[player] = casaAtualPorPlayer[player] % casas.Count;
-			return true;
-		} else {
-			return false;
+	public void AndarCasasVerificandoVoltaCompleta (Player player, int numeroCasas,
+		out bool voltaCompleta, out List<CasaTabuleiro> casasPassadas) {
+		casasPassadas = new List<CasaTabuleiro> ();
+		voltaCompleta = false;
+		while (numeroCasas > 0) {
+			casaAtualPorPlayer[player]++;
+			numeroCasas--;
+			if (casaAtualPorPlayer[player] >= casas.Count) {
+				casaAtualPorPlayer[player] = casaAtualPorPlayer[player] % casas.Count;
+				voltaCompleta = true;
+			}
+			casasPassadas.Add (casas[casaAtualPorPlayer[player]]);
 		}
 
 	}
@@ -79,7 +84,11 @@ public class TabuleiroManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="player">Player.</param>
 	public CasaTabuleiro GetCasaAtual (Player player) {
-		return casas[casaAtualPorPlayer[player]];
+		if (casaAtualPorPlayer[player] != null) {
+			return casas[casaAtualPorPlayer[player]];
+		} else {
+			return null;
+		}
 	}
 
 	/// <summary>
@@ -107,7 +116,6 @@ public class TabuleiroManager : MonoBehaviour {
 	public void ComprarCasa (Player player, CasaTabuleiro casa) {
 		casasCompradasPorPlayer[casa] = player;
 		casa.atualizaCor (player.GetCor ());
-		player.movimentaPlayer (casa.transform.position, () => { });
 	}
 
 	/// <summary>
